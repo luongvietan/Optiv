@@ -86,7 +86,7 @@ export function CaseStudyTestimonialSection() {
             className="mx-auto max-w-xl pb-10 pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] pt-10 text-center text-balance md:mx-0 md:max-w-2xl md:px-10 md:pt-14 md:text-left lg:px-16 lg:pt-16"
           >
             <p className="text-xl font-normal leading-[1.1] tracking-tight text-white sm:text-2xl md:text-3xl lg:text-4xl">
-              "OptEx AI has completely changed how we work. Now we manage tasks
+              "Optiv AI has completely changed how we work. Now we manage tasks
               faster and stay productive 24/7."
             </p>
           </blockquote>

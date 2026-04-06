@@ -216,7 +216,7 @@ export function SocialProofCtaSection() {
             26,900,789
           </span>
           <span className={cn(lp.mutedBase, "md:text-lg")}>
-            Tasks Completed with OptEx AI
+            Tasks Completed with Optiv AI
           </span>
         </div>
       </div>

@@ -1,6 +1,6 @@
 /** Site-wide copy & nav for the marketing landing. */
 export const site = {
-  name: "OptEx",
+  name: "Optiv",
   description: "Landing page",
 } as const;
 

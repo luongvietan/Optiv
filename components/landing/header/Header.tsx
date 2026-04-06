@@ -142,7 +142,7 @@ export function Header() {
             priority
           />
           <span className="truncate text-base font-semibold text-black sm:text-lg">
-            OptEx
+            Optiv
           </span>
         </Link>
 
