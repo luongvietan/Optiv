@@ -9,8 +9,7 @@ import { useLayoutEffect, useRef } from "react";
 gsap.registerPlugin(ScrollTrigger);
 
 const BG_SRC = "/images/landing/About.png";
-const PORTRAIT_SRC =
-  "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=85";
+const PORTRAIT_SRC = "/images/landing/person.png";
 
 const LOGO_SRC = "/images/logo.png";
 

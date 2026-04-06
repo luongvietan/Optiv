@@ -23,8 +23,9 @@ export const lp = {
   headingSectionSm:
     "text-balance font-normal tracking-tight leading-[1.1] text-2xl text-black md:text-3xl",
 
+  /** Relaxed leading + padding: tight `leading-[1.1]` + bg-clip-text clips glyph tops in some browsers */
   gradientText:
-    "bg-gradient-to-r from-black via-gray-500 to-gray-400 bg-clip-text text-transparent",
+    "bg-gradient-to-r from-black via-gray-500 to-gray-400 bg-clip-text pb-0.5 pt-1 text-transparent leading-snug",
 
   /** Hero subline: `text-lg text-gray-600 md:text-xl` */
   lead: "text-lg leading-relaxed text-gray-600 md:text-xl",

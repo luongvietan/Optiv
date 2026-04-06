@@ -6,10 +6,10 @@ import Link from "next/link";
 export function Header() {
   return (
     <header
-      className="animate-fade-in-up px-6 py-4"
+      className="sticky top-0 z-50 w-full animate-fade-in-up border-b border-gray-100/80 bg-white/95 backdrop-blur-sm"
       style={{ opacity: 0, animationDelay: "0.1s" }}
     >
-      <div className="flex w-full items-center justify-between">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-2">
           <Image
             src="/images/logo.png"

@@ -6,12 +6,11 @@ import {
   BookOpen,
   Check,
   CheckCircle2,
+  Filter,
   Rocket,
   Star,
-  Users,
 } from "lucide-react";
 import {
-  Fragment,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -25,7 +24,7 @@ type TabId = "analyse" | "train" | "testing" | "deploy";
 const TABS: { id: TabId; label: string; Icon: typeof BarChart3 }[] = [
   { id: "analyse", label: "Analyse", Icon: BarChart3 },
   { id: "train", label: "Train", Icon: BookOpen },
-  { id: "testing", label: "Testing", Icon: Users },
+  { id: "testing", label: "Testing", Icon: Filter },
   { id: "deploy", label: "Deploy", Icon: Rocket },
 ];
 
@@ -38,7 +37,7 @@ function TabPanels({
 }) {
   return (
     <>
-      <div className="rounded-lg bg-gray-100 p-1 md:hidden">
+      <div className="rounded-full bg-gray-100 p-1 md:hidden">
         <div className="grid grid-cols-2 gap-1">
           {TABS.map((tab) => {
             const active = activeTab === tab.id;
@@ -48,9 +47,9 @@ function TabPanels({
                 key={tab.id}
                 type="button"
                 onClick={() => onSelect(tab.id)}
-                className={`flex items-center justify-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium transition-colors ${
+                className={`flex items-center justify-center gap-2 rounded-full px-3 py-2.5 text-sm font-medium transition-colors ${
                   active
-                    ? "bg-white text-black shadow-sm"
+                    ? "bg-white text-black shadow-sm ring-1 ring-black/5"
                     : "text-gray-600 hover:text-black"
                 }`}
               >
@@ -62,31 +61,24 @@ function TabPanels({
         </div>
       </div>
 
-      <div className="hidden rounded-lg bg-gray-100 p-1 md:flex md:items-center md:justify-center">
-        {TABS.map((tab, i) => {
+      <div className="hidden w-full rounded-full bg-gray-100 p-1 md:flex md:items-center md:gap-1">
+        {TABS.map((tab) => {
           const active = activeTab === tab.id;
           const Icon = tab.Icon;
           return (
-            <Fragment key={tab.id}>
-              {i > 0 ? (
-                <span
-                  className="mx-1 hidden h-5 w-px shrink-0 bg-gray-300 md:block"
-                  aria-hidden
-                />
-              ) : null}
-              <button
-                type="button"
-                onClick={() => onSelect(tab.id)}
-                className={`flex flex-1 items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition-colors ${
-                  active
-                    ? "bg-white text-black shadow-sm"
-                    : "text-gray-600 hover:text-black"
-                }`}
-              >
-                <Icon className="h-4 w-4 shrink-0" aria-hidden />
-                {tab.label}
-              </button>
-            </Fragment>
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => onSelect(tab.id)}
+              className={`flex min-h-10 flex-1 items-center justify-center gap-2 rounded-full px-3 py-2 text-sm font-medium transition-colors ${
+                active
+                  ? "bg-white text-black shadow-sm ring-1 ring-black/5"
+                  : "text-gray-600 hover:text-black"
+              }`}
+            >
+              <Icon className="h-4 w-4 shrink-0" aria-hidden />
+              {tab.label}
+            </button>
           );
         })}
       </div>
