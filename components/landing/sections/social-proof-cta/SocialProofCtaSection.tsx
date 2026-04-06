@@ -122,7 +122,7 @@ export function SocialProofCtaSection() {
 
   return (
     <section ref={sectionRef} className={lp.section} aria-labelledby="social-proof-heading">
-      <div ref={statsRef} className={lp.container}>
+      <div ref={statsRef} className={cn(lp.container, "relative z-10")}>
         <h2 id="social-proof-heading" className={lp.headingSectionMd}>
           Don&apos;t Just Take Our Word for it
         </h2>
@@ -145,16 +145,21 @@ export function SocialProofCtaSection() {
         </div>
       </div>
 
-      <div className={cn(lp.container, "mt-16 md:mt-24")}>
-        <div className="relative">
+      <div className={cn(lp.container, "relative z-0 mt-16 md:mt-24")}>
+        <div className="relative z-0">
           <div
-            className="pointer-events-none absolute -inset-6 rounded-[2.5rem] bg-gradient-to-br from-pink-300/40 via-purple-300/30 to-sky-300/40 blur-3xl"
+            className="pointer-events-none absolute -inset-6 z-0 md:-inset-10"
             aria-hidden
-          />
+          >
+            <div className="absolute left-1/2 top-6 h-[42%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-pink-200/40 blur-3xl md:top-10" />
+            <div className="absolute bottom-6 left-1/2 h-[42%] w-[72%] -translate-x-1/2 translate-y-1/2 rounded-full bg-fuchsia-200/40 blur-3xl md:bottom-10" />
+            <div className="absolute left-6 top-1/2 h-[72%] w-[42%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-200/40 blur-3xl md:left-10" />
+            <div className="absolute right-6 top-1/2 h-[72%] w-[42%] translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-200/40 blur-3xl md:right-10" />
+          </div>
           <div
             ref={ctaBlockRef}
             className={cn(
-              "relative min-h-[300px] md:min-h-[340px] md:rounded-[2.5rem]",
+              "relative z-10 min-h-[300px] md:min-h-[340px] md:rounded-[2.5rem]",
               lp.roundedMedia,
             )}
           >
@@ -167,7 +172,7 @@ export function SocialProofCtaSection() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/35 to-black/25" />
 
-            <div className="relative flex min-h-[300px] flex-col items-center justify-center px-6 py-14 text-center md:min-h-[340px] md:px-12 md:py-16">
+            <div className="relative z-10 flex min-h-[300px] flex-col items-center justify-center px-6 py-14 text-center md:min-h-[340px] md:px-12 md:py-16">
               <h3 className="max-w-xl text-balance text-2xl font-normal leading-[1.1] tracking-tight text-white md:text-3xl lg:text-4xl">
                 Start Your Productivity Journey Today
               </h3>
