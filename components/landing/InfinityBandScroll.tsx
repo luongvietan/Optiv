@@ -10,11 +10,14 @@ const PARTNER_LOGOS = [
 const LOGO_BOX =
   "flex h-10 w-[7.5rem] shrink-0 items-center justify-center md:h-11 md:w-[8.5rem]";
 
-function LogoItems({ decorative = false }: { decorative?: boolean }) {
+const LOGO_LIST =
+  "m-0 flex shrink-0 list-none flex-nowrap items-center gap-10 p-0 sm:gap-14 md:gap-16 pr-10 sm:pr-14 md:pr-16";
+
+function LogoList({ decorative = false }: { decorative?: boolean }) {
   return (
     <>
       {PARTNER_LOGOS.map(({ src, alt }) => (
-        <div key={src} className={LOGO_BOX}>
+        <li key={src} className={LOGO_BOX}>
           <img
             src={src}
             alt={decorative ? "" : alt}
@@ -26,7 +29,7 @@ function LogoItems({ decorative = false }: { decorative?: boolean }) {
               "grayscale brightness-0 contrast-100",
             )}
           />
-        </div>
+        </li>
       ))}
     </>
   );
@@ -36,20 +39,22 @@ export default function InfinityBandScroll() {
   return (
     <div
       className={cn(
-        "w-full min-w-0 overflow-hidden py-8",
+        "inline-flex w-full min-w-0 flex-nowrap overflow-hidden py-8",
         "mask-[linear-gradient(to_right,transparent_0,black_128px,black_calc(100%-200px),transparent_100%)]",
       )}
     >
-      <div className="animate-infinite-scroll">
-        <div className="flex shrink-0 items-center gap-10 sm:gap-14 md:gap-16">
-          <LogoItems />
-        </div>
-        <div
-          className="flex shrink-0 items-center gap-10 sm:gap-14 md:gap-16"
-          aria-hidden
-        >
-          <LogoItems decorative />
-        </div>
+      <div
+        className={cn(
+          "flex w-max min-w-0 flex-nowrap animate-infinite-scroll motion-reduce:animate-none",
+          "[backface-visibility:hidden]",
+        )}
+      >
+        <ul className={LOGO_LIST}>
+          <LogoList />
+        </ul>
+        <ul className={LOGO_LIST} aria-hidden>
+          <LogoList decorative />
+        </ul>
       </div>
     </div>
   );

@@ -1,6 +1,19 @@
 @import "tailwindcss";
 @config "../tailwind.config.ts";
 
+@theme {
+  --animate-infinite-scroll: infinite-scroll 25s linear infinite;
+
+  @keyframes infinite-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
 @import "lenis/dist/lenis.css";
 
 @import "./index.css";
