@@ -4,8 +4,7 @@ import { Check, ChevronRight, Rocket, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const MEADOW_SRC =
-  "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=85";
+const MEADOW_SRC = "/images/landing/BuildPlan.png";
 
 export function BuildPlanAiSection() {
   return (

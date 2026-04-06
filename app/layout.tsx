@@ -11,6 +11,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "OptEx",
   description: "Work smarter with AI-powered automation.",
+  icons: {
+    icon: [{ url: "/images/logo.png", type: "image/png" }],
+    apple: "/images/logo.png",
+  },
 };
 
 export default function RootLayout({

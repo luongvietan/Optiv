@@ -4,6 +4,7 @@ import { site } from "@/lib/landing/site";
 import { lp } from "@/lib/landing/styles";
 import { cn } from "@/lib/utils";
 import { Mail } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const quickLinks = [
@@ -30,18 +31,14 @@ const resourceLinks = [
 function FooterLogo() {
   return (
     <Link href="/" className="inline-flex items-center gap-2.5">
-      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-black">
-        <svg
-          viewBox="0 0 24 24"
-          className="h-5 w-5 text-white"
-          fill="currentColor"
-          aria-hidden
-        >
-          <rect x="4" y="14" width="2.5" height="6" rx="0.5" />
-          <rect x="8.5" y="10" width="2.5" height="10" rx="0.5" />
-          <rect x="13" y="12" width="2.5" height="8" rx="0.5" />
-          <rect x="17.5" y="6" width="2.5" height="14" rx="0.5" />
-        </svg>
+      <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-black">
+        <Image
+          src="/images/logo.png"
+          alt=""
+          fill
+          className="object-contain p-1.5 invert"
+          sizes="40px"
+        />
       </span>
       <span className="text-lg font-semibold tracking-tight text-black">
         {site.name} AI

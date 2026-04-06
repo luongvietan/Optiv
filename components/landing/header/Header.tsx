@@ -1,5 +1,6 @@
 import { lp } from "@/lib/landing/styles";
-import { ChevronDown, Star } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export function Header() {
@@ -10,7 +11,14 @@ export function Header() {
     >
       <div className="flex w-full items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <Star className="h-5 w-5 fill-black text-black" aria-hidden />
+          <Image
+            src="/images/logo.png"
+            alt=""
+            width={32}
+            height={32}
+            className="h-8 w-8 object-contain"
+            priority
+          />
           <span className="text-lg font-semibold text-black">OptEx</span>
         </Link>
 

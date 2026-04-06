@@ -1,35 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const BG_SRC =
-  "https://images.unsplash.com/photo-1499002238440-d264b5967daa?auto=format&fit=crop&w=2400&q=85";
+const BG_SRC = "/images/landing/About.png";
 const PORTRAIT_SRC =
   "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=85";
 
-/** Stylized oval / waveform mark — vertical bars of varying heights */
-function BrandMark() {
-  return (
-    <svg
-      viewBox="0 0 72 88"
-      className="h-[4.5rem] w-[3.75rem] text-black md:h-[5.25rem] md:w-[4.25rem]"
-      fill="none"
-      aria-hidden
-    >
-      <ellipse
-        cx="36"
-        cy="44"
-        rx="34"
-        ry="42"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
-      <rect x="18" y="52" width="5" height="20" rx="1.5" fill="currentColor" />
-      <rect x="27" y="36" width="5" height="36" rx="1.5" fill="currentColor" />
-      <rect x="36" y="44" width="5" height="28" rx="1.5" fill="currentColor" />
-      <rect x="45" y="28" width="5" height="44" rx="1.5" fill="currentColor" />
-    </svg>
-  );
-}
+const LOGO_SRC = "/images/logo.png";
 
 export function CaseStudyTestimonialSection() {
   return (
@@ -62,8 +38,8 @@ export function CaseStudyTestimonialSection() {
             className="max-w-xl px-6 pb-10 pt-10 text-left md:max-w-2xl md:px-10 md:pt-14 lg:px-16 lg:pt-16"
           >
             <p className="text-2xl font-normal leading-[1.1] tracking-tight text-white md:text-3xl lg:text-4xl">
-              OptEx AI has completely changed how we work. Now we manage tasks
-              faster and stay productive 24/7
+              "OptEx AI has completely changed how we work. Now we manage tasks
+              faster and stay productive 24/7."
             </p>
           </blockquote>
 
@@ -82,8 +58,14 @@ export function CaseStudyTestimonialSection() {
                         sizes="(max-width: 640px) 50vw, 11rem"
                       />
                     </div>
-                    <div className="flex min-h-[9.5rem] min-w-0 items-center justify-center bg-white md:min-h-[11rem]">
-                      <BrandMark />
+                    <div className="relative flex min-h-[9.5rem] min-w-0 items-center justify-center bg-white px-4 md:min-h-[11rem]">
+                      <Image
+                        src={LOGO_SRC}
+                        alt=""
+                        width={160}
+                        height={160}
+                        className="h-[4.5rem] w-[4.5rem] object-contain md:h-[5.25rem] md:w-[5.25rem]"
+                      />
                     </div>
                   </div>
                 </div>

@@ -3,8 +3,7 @@ import { lp } from "@/lib/landing/styles";
 import Image from "next/image";
 import Link from "next/link";
 
-const CTA_BG_SRC =
-  "https://images.unsplash.com/photo-1499002238440-d264b5967daa?auto=format&fit=crop&w=2000&q=85";
+const CTA_BG_SRC = "/images/landing/CTA.png";
 
 export function SocialProofCtaSection() {
   return (

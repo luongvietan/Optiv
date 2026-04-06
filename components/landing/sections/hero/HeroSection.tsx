@@ -315,7 +315,7 @@ export function HeroSection() {
             loop
             muted
             playsInline
-            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260319_165750_358b1e72-c921-48b7-aaac-f200994f32fb.mp4"
+            src="/images/landing/hero.mp4"
           />
           <VideoOverlays activeTab={activeTab} />
         </div>
