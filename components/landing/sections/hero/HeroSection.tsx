@@ -14,9 +14,11 @@ import {
   Fragment,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
+import gsap from "gsap";
 
 type TabId = "analyse" | "train" | "testing" | "deploy";
 
@@ -227,6 +229,14 @@ function VideoOverlays({ activeTab }: { activeTab: TabId }) {
 export function HeroSection() {
   const [activeTab, setActiveTab] = useState<TabId>("analyse");
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const badgeRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const leadRef = useRef<HTMLParagraphElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLDivElement>(null);
+  const bandRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const startCycle = useCallback(() => {
     if (intervalRef.current) clearInterval(intervalRef.current);
@@ -245,6 +255,50 @@ export function HeroSection() {
     };
   }, [startCycle]);
 
+  useLayoutEffect(() => {
+    const badge = badgeRef.current;
+    const title = titleRef.current;
+    const lead = leadRef.current;
+    const cta = ctaRef.current;
+    const tabs = tabsRef.current;
+    const video = videoRef.current;
+    const band = bandRef.current;
+    if (
+      !badge ||
+      !title ||
+      !lead ||
+      !cta ||
+      !tabs ||
+      !video ||
+      !band
+    ) {
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out" },
+      });
+      tl.from(badge, { opacity: 0, y: 22, duration: 0.55 })
+        .from(
+          title.querySelectorAll(":scope > span"),
+          { opacity: 0, y: 36, duration: 0.65, stagger: 0.1 },
+          "-=0.25",
+        )
+        .from(lead, { opacity: 0, y: 24, duration: 0.5 }, "-=0.35")
+        .from(cta, { opacity: 0, y: 18, duration: 0.45 }, "-=0.3")
+        .from(tabs, { opacity: 0, y: 20, duration: 0.5 }, "-=0.25")
+        .from(
+          video,
+          { opacity: 0, scale: 0.96, y: 28, duration: 0.8 },
+          "-=0.2",
+        )
+        .from(band, { opacity: 0, y: 20, duration: 0.55 }, "-=0.45");
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const selectTab = useCallback(
     (id: TabId) => {
       setActiveTab(id);
@@ -254,11 +308,11 @@ export function HeroSection() {
   );
 
   return (
-    <section id="hero" className="bg-white">
+    <section ref={sectionRef} id="hero" className="bg-white">
       <div className="w-full px-6 pb-32 pt-24 text-center">
         <div
-          className="animate-fade-in-up mb-8 inline-flex items-center gap-2"
-          style={{ opacity: 0, animationDelay: "0.2s" }}
+          ref={badgeRef}
+          className="mb-8 inline-flex items-center gap-2 will-change-transform"
         >
           <span className="inline-flex h-6 w-6 items-center justify-center rounded border border-gray-300">
             <Star className="h-3.5 w-3.5 fill-black text-black" aria-hidden />
@@ -269,8 +323,8 @@ export function HeroSection() {
         </div>
 
         <h1
-          className="animate-fade-in-up mb-5 text-6xl font-normal leading-[1.1] tracking-tight md:text-7xl lg:text-[80px]"
-          style={{ opacity: 0, animationDelay: "0.3s" }}
+          ref={titleRef}
+          className="mb-5 text-6xl font-normal leading-[1.1] tracking-tight md:text-7xl lg:text-[80px]"
         >
           <span className="block text-black">Work Smarter. Move Faster.</span>
           <span className="mt-1 block bg-gradient-to-r from-black via-gray-500 to-gray-400 bg-clip-text text-transparent">
@@ -279,17 +333,14 @@ export function HeroSection() {
         </h1>
 
         <p
-          className="animate-fade-in-up mx-auto mb-8 max-w-2xl text-lg text-gray-600 md:text-xl"
-          style={{ opacity: 0, animationDelay: "0.4s" }}
+          ref={leadRef}
+          className="mx-auto mb-8 max-w-2xl text-lg text-gray-600 md:text-xl"
         >
           Intelligent automation syncs with the tools you love to streamline
           tasks, boost output, and save time.
         </p>
 
-        <div
-          className="animate-fade-in-up mb-12"
-          style={{ opacity: 0, animationDelay: "0.5s" }}
-        >
+        <div ref={ctaRef} className="mb-12">
           <a
             href="#cta"
             className="inline-block rounded-full bg-black px-8 py-3 text-base font-medium text-white transition-colors hover:bg-gray-800"
@@ -298,16 +349,13 @@ export function HeroSection() {
           </a>
         </div>
 
-        <div
-          className="animate-fade-in-up mx-auto mb-8 max-w-3xl"
-          style={{ opacity: 0, animationDelay: "0.6s" }}
-        >
+        <div ref={tabsRef} className="mx-auto mb-8 max-w-3xl">
           <TabPanels activeTab={activeTab} onSelect={selectTab} />
         </div>
 
         <div
-          className="animate-fade-in-up relative h-[400px] overflow-hidden rounded-3xl md:h-[500px]"
-          style={{ opacity: 0, animationDelay: "0.7s" }}
+          ref={videoRef}
+          className="relative h-[400px] overflow-hidden rounded-3xl md:h-[500px]"
         >
           <video
             className="h-full w-full object-cover"
@@ -320,10 +368,7 @@ export function HeroSection() {
           <VideoOverlays activeTab={activeTab} />
         </div>
 
-        <div
-          className="animate-fade-in-up mt-24"
-          style={{ opacity: 0, animationDelay: "0.8s" }}
-        >
+        <div ref={bandRef} className="mt-24">
           <InfinityBandScroll />
         </div>
       </div>

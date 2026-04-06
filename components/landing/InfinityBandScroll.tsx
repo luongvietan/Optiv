@@ -3,9 +3,7 @@ import { cn } from "@/lib/utils";
 const PARTNER_LOGOS = [
   { src: "/logos/interscope.svg", alt: "Interscope Records" },
   { src: "/logos/spotify.svg", alt: "Spotify" },
-  { src: "/logos/nexera-mark.avif", alt: "Nexera" },
   { src: "/logos/bmw.svg", alt: "BMW" },
-  { src: "/logos/bandcamp.svg", alt: "Bandcamp" },
   { src: "/logos/googlecloud.svg", alt: "Google Cloud" },
 ] as const;
 

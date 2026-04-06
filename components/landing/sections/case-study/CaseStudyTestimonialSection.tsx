@@ -1,5 +1,12 @@
+"use client";
+
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
+import { useLayoutEffect, useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const BG_SRC = "/images/landing/About.png";
 const PORTRAIT_SRC =
@@ -8,8 +15,50 @@ const PORTRAIT_SRC =
 const LOGO_SRC = "/images/logo.png";
 
 export function CaseStudyTestimonialSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const quoteRef = useRef<HTMLQuoteElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    const quote = quoteRef.current;
+    const bottom = bottomRef.current;
+    if (!section || !quote || !bottom) return;
+
+    const ctx = gsap.context(() => {
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: "top 72%",
+            toggleActions: "play none none none",
+          },
+        })
+        .from(quote, {
+          opacity: 0,
+          x: -40,
+          skewX: -2,
+          duration: 0.95,
+          ease: "power2.out",
+        })
+        .from(
+          bottom,
+          {
+            opacity: 0,
+            y: 72,
+            duration: 0.85,
+            ease: "power3.out",
+          },
+          "-=0.5",
+        );
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2"
       aria-labelledby="case-study-quote"
     >
@@ -27,13 +76,13 @@ export function CaseStudyTestimonialSection() {
         />
 
         <div className="relative z-[2] flex min-h-[520px] flex-col md:min-h-[600px] lg:min-h-[640px]">
-          {/* Full-width rule inside content stack — avoids being covered by Image layers */}
           <div
             className="mx-6 h-[1px] shrink-0 bg-white md:mx-10 lg:mx-16"
             aria-hidden
           />
 
           <blockquote
+            ref={quoteRef}
             id="case-study-quote"
             className="max-w-xl px-6 pb-10 pt-10 text-left md:max-w-2xl md:px-10 md:pt-14 lg:px-16 lg:pt-16"
           >
@@ -43,10 +92,12 @@ export function CaseStudyTestimonialSection() {
             </p>
           </blockquote>
 
-          <div className="mt-auto px-6 pb-10 pt-4 md:px-10 lg:px-16 lg:pb-14">
+          <div
+            ref={bottomRef}
+            className="mt-auto px-6 pb-10 pt-4 md:px-10 lg:px-16 lg:pb-14"
+          >
             <div className="flex w-full justify-end">
               <div className="flex w-full flex-col items-stretch gap-6 sm:w-auto sm:max-w-none sm:flex-row sm:items-stretch sm:justify-end sm:gap-0">
-                {/* Identity card — equal halves, rounded-3xl */}
                 <div className="mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-white/35 shadow-[0_8px_40px_rgba(0,0,0,0.25)] sm:mx-0 sm:max-w-none sm:w-[min(100%,20rem)] md:w-[22rem] lg:w-[24rem]">
                   <div className="grid min-h-[9.5rem] grid-cols-2 md:min-h-[11rem]">
                     <div className="relative min-h-[9.5rem] min-w-0 md:min-h-[11rem]">
@@ -70,7 +121,6 @@ export function CaseStudyTestimonialSection() {
                   </div>
                 </div>
 
-                {/* Vertical rule + right column */}
                 <div
                   className="hidden w-px shrink-0 self-stretch bg-white sm:mx-6 sm:block md:mx-8"
                   aria-hidden

@@ -1,14 +1,128 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { lp } from "@/lib/landing/styles";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useLayoutEffect, useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const CTA_BG_SRC = "/images/landing/CTA.png";
 
 export function SocialProofCtaSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const metricRef = useRef<HTMLDivElement>(null);
+  const ctaBlockRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    const stats = statsRef.current;
+    const metric = metricRef.current;
+    const ctaBlock = ctaBlockRef.current;
+    if (!section || !stats || !metric || !ctaBlock) return;
+
+    const ctaCopy = ctaBlock.querySelectorAll("h3, p, a");
+    const statsIntro = [
+      stats.querySelector("h2"),
+      stats.querySelector("p"),
+      stats.querySelector(".mt-6"),
+    ].filter(Boolean) as HTMLElement[];
+
+    const scrollDefaults = {
+      toggleActions: "play none none none" as const,
+      invalidateOnRefresh: true,
+    };
+
+    const ctx = gsap.context(() => {
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: stats,
+            start: "top 92%",
+            ...scrollDefaults,
+          },
+        })
+        .fromTo(
+          statsIntro,
+          { opacity: 0, y: 26 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.09,
+            ease: "power2.out",
+            immediateRender: false,
+          },
+        )
+        .fromTo(
+          metric,
+          { opacity: 0, scale: 0.82 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.7,
+            ease: "back.out(1.35)",
+            immediateRender: false,
+          },
+          "-=0.1",
+        );
+
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: ctaBlock,
+            start: "top 92%",
+            ...scrollDefaults,
+          },
+        })
+        .fromTo(
+          ctaBlock,
+          { opacity: 0, y: 72, clipPath: "inset(10% 0 10% 0)" },
+          {
+            opacity: 1,
+            y: 0,
+            clipPath: "inset(0% 0 0% 0)",
+            duration: 0.95,
+            ease: "power3.out",
+            immediateRender: false,
+          },
+        )
+        .fromTo(
+          ctaCopy,
+          { opacity: 0, y: 22 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.1,
+            ease: "power2.out",
+            immediateRender: false,
+          },
+          "-=0.55",
+        );
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+    const t = window.setTimeout(() => ScrollTrigger.refresh(), 120);
+    return () => {
+      cancelAnimationFrame(id);
+      window.clearTimeout(t);
+    };
+  }, []);
+
   return (
-    <section className={lp.section} aria-labelledby="social-proof-heading">
-      <div className={lp.container}>
+    <section ref={sectionRef} className={lp.section} aria-labelledby="social-proof-heading">
+      <div ref={statsRef} className={lp.container}>
         <h2 id="social-proof-heading" className={lp.headingSectionMd}>
           Don&apos;t Just Take Our Word for it
         </h2>
@@ -18,7 +132,10 @@ export function SocialProofCtaSection() {
 
         <div className="mt-6 h-px w-full bg-gray-200" aria-hidden />
 
-        <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-4 sm:gap-y-2">
+        <div
+          ref={metricRef}
+          className="js-social-metric mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-4 sm:gap-y-2"
+        >
           <span className="text-4xl font-normal tabular-nums tracking-tight text-black md:text-5xl lg:text-6xl">
             26,900,789
           </span>
@@ -35,6 +152,7 @@ export function SocialProofCtaSection() {
             aria-hidden
           />
           <div
+            ref={ctaBlockRef}
             className={cn(
               "relative min-h-[300px] md:min-h-[340px] md:rounded-[2.5rem]",
               lp.roundedMedia,

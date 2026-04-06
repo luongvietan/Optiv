@@ -1,16 +1,69 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { lp } from "@/lib/landing/styles";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Check, ChevronRight, Rocket, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useLayoutEffect, useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const MEADOW_SRC = "/images/landing/BuildPlan.png";
 
 export function BuildPlanAiSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const copyRef = useRef<HTMLDivElement>(null);
+  const visualRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    const copy = copyRef.current;
+    const visual = visualRef.current;
+    if (!section || !copy || !visual) return;
+
+    const ctx = gsap.context(() => {
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: "top 78%",
+            toggleActions: "play none none none",
+          },
+        })
+        .from(copy, {
+          opacity: 0,
+          x: -64,
+          duration: 0.85,
+          ease: "power3.out",
+        })
+        .from(
+          visual,
+          {
+            opacity: 0,
+            x: 72,
+            rotateY: -8,
+            transformOrigin: "left center",
+            duration: 0.95,
+            ease: "power3.out",
+          },
+          "-=0.65",
+        );
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className={lp.section} aria-labelledby="build-plan-ai-heading">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
-        <div className="text-left">
+    <section
+      ref={sectionRef}
+      className={lp.section}
+      aria-labelledby="build-plan-ai-heading"
+    >
+      <div className="mx-auto grid max-w-6xl items-center gap-12 [perspective:1400px] lg:grid-cols-2 lg:gap-16">
+        <div ref={copyRef} className="text-left">
           <h2 id="build-plan-ai-heading" className={lp.headingSectionMd}>
             Build, Plan, and Execute with AI
           </h2>
@@ -39,7 +92,10 @@ export function BuildPlanAiSection() {
           </Link>
         </div>
 
-        <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
+        <div
+          ref={visualRef}
+          className="relative mx-auto w-full max-w-lg lg:max-w-none"
+        >
           <div
             className="pointer-events-none absolute -inset-8 rounded-[2.5rem] bg-gradient-to-br from-pink-300/35 via-purple-300/25 to-sky-300/35 blur-3xl"
             aria-hidden

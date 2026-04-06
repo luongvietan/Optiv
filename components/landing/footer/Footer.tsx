@@ -84,8 +84,8 @@ export function Footer() {
       />
 
       <div className="relative px-6 pb-10 pt-14 md:pt-16 lg:px-10">
-        <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-4 lg:gap-10 xl:gap-14">
-          <div className="lg:max-w-sm">
+        <div className="mx-auto flex max-w-6xl flex-col gap-12 lg:flex-row lg:items-start lg:justify-between lg:gap-10 xl:gap-14">
+          <div className="min-w-0 w-full lg:flex-1">
             <FooterLogo />
 
             <h3 className="mt-8 text-sm font-semibold text-black">Subscribe</h3>
@@ -127,9 +127,11 @@ export function Footer() {
             </p>
           </div>
 
-          <LinkColumn title="Quick Links" links={quickLinks} />
-          <LinkColumn title="Product" links={productLinks} />
-          <LinkColumn title="Resources" links={resourceLinks} />
+          <div className="grid grid-cols-2 gap-x-10 gap-y-10 sm:grid-cols-3 sm:gap-x-14 sm:gap-y-10 lg:flex lg:min-w-0 lg:flex-1 lg:justify-between">
+            <LinkColumn title="Quick Links" links={quickLinks} />
+            <LinkColumn title="Product" links={productLinks} />
+            <LinkColumn title="Resources" links={resourceLinks} />
+          </div>
         </div>
 
         <div className="mx-auto mt-14 max-w-6xl border-t border-gray-200 pt-8">
