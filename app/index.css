@@ -36,10 +36,6 @@
 }
 
 .animate-slide-up-overlay {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
   animation: fadeInDialog 0.5s ease-out forwards;
 }
 

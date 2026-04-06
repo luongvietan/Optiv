@@ -61,7 +61,7 @@ export function CaseStudyTestimonialSection() {
       className="relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2"
       aria-labelledby="case-study-quote"
     >
-      <div className="relative min-h-[520px] md:min-h-[600px] lg:min-h-[640px]">
+        <div className="relative min-h-[min(100svh,520px)] md:min-h-[600px] lg:min-h-[640px]">
         <Image
           src={BG_SRC}
           alt=""
@@ -74,18 +74,18 @@ export function CaseStudyTestimonialSection() {
           aria-hidden
         />
 
-        <div className="relative z-[2] flex min-h-[520px] flex-col md:min-h-[600px] lg:min-h-[640px]">
+        <div className="relative z-[2] flex min-h-[min(100svh,520px)] flex-col md:min-h-[600px] lg:min-h-[640px]">
           <div
-            className="mx-6 h-[1px] shrink-0 bg-white md:mx-10 lg:mx-16"
+            className="ml-[max(1.5rem,env(safe-area-inset-left))] mr-[max(1.5rem,env(safe-area-inset-right))] h-[1px] shrink-0 bg-white md:ml-10 md:mr-10 lg:ml-16 lg:mr-16"
             aria-hidden
           />
 
           <blockquote
             ref={quoteRef}
             id="case-study-quote"
-            className="max-w-xl px-6 pb-10 pt-10 text-left md:max-w-2xl md:px-10 md:pt-14 lg:px-16 lg:pt-16"
+            className="mx-auto max-w-xl pb-10 pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] pt-10 text-center text-balance md:mx-0 md:max-w-2xl md:px-10 md:pt-14 md:text-left lg:px-16 lg:pt-16"
           >
-            <p className="text-2xl font-normal leading-[1.1] tracking-tight text-white md:text-3xl lg:text-4xl">
+            <p className="text-xl font-normal leading-[1.1] tracking-tight text-white sm:text-2xl md:text-3xl lg:text-4xl">
               "OptEx AI has completely changed how we work. Now we manage tasks
               faster and stay productive 24/7."
             </p>
@@ -93,10 +93,10 @@ export function CaseStudyTestimonialSection() {
 
           <div
             ref={bottomRef}
-            className="mt-auto px-6 pb-10 pt-4 md:px-10 lg:px-16 lg:pb-14"
+            className="mt-auto pb-[max(2.5rem,env(safe-area-inset-bottom))] pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] pt-4 md:px-10 lg:px-16 lg:pb-14"
           >
-            <div className="flex w-full justify-end">
-              <div className="flex w-full flex-col items-stretch gap-6 sm:w-auto sm:max-w-none sm:flex-row sm:items-stretch sm:justify-end sm:gap-0">
+            <div className="flex w-full justify-center md:justify-end">
+              <div className="flex w-full max-w-lg flex-col items-stretch gap-6 sm:max-w-none sm:w-auto sm:flex-row sm:items-stretch sm:justify-end sm:gap-0">
                 <div className="mx-auto w-full max-w-md overflow-hidden rounded-3xl border border-white/35 shadow-[0_8px_40px_rgba(0,0,0,0.25)] sm:mx-0 sm:max-w-none sm:w-[min(100%,20rem)] md:w-[22rem] lg:w-[24rem]">
                   <div className="grid min-h-[9.5rem] grid-cols-2 md:min-h-[11rem]">
                     <div className="relative min-h-[9.5rem] min-w-0 md:min-h-[11rem]">
@@ -126,7 +126,7 @@ export function CaseStudyTestimonialSection() {
                 />
 
                 <div className="flex w-full flex-col items-center gap-6 sm:w-auto sm:items-end sm:justify-end sm:self-stretch">
-                  <div className="w-full max-w-sm rounded-2xl bg-white px-5 py-4 text-left shadow-[0_4px_24px_rgba(0,0,0,0.12)] sm:max-w-[17.5rem] sm:py-4">
+                  <div className="w-full max-w-sm rounded-2xl bg-white px-5 py-4 text-center shadow-[0_4px_24px_rgba(0,0,0,0.12)] sm:max-w-[17.5rem] sm:py-4 sm:text-left">
                     <p className="text-lg font-bold leading-tight tracking-tight text-black">
                       Wayne Grimshaw
                     </p>

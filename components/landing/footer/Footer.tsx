@@ -55,14 +55,16 @@ function LinkColumn({
   links: readonly { href: string; label: string }[];
 }) {
   return (
-    <div>
-      <h3 className="text-sm font-semibold text-black">{title}</h3>
-      <ul className="mt-4 space-y-3">
+    <div className="min-w-0">
+      <h3 className="text-xs font-semibold leading-tight text-black sm:text-sm">
+        {title}
+      </h3>
+      <ul className="mt-2 space-y-2 sm:mt-3 sm:space-y-2.5 md:mt-4 md:space-y-3">
         {links.map((item) => (
           <li key={item.href + item.label}>
             <Link
               href={item.href}
-              className="text-sm text-gray-600 transition-colors hover:text-black"
+              className="text-[0.7rem] leading-snug text-gray-600 transition-colors hover:text-black sm:text-sm sm:leading-normal"
             >
               {item.label}
             </Link>
@@ -83,39 +85,46 @@ export function Footer() {
         aria-hidden
       />
 
-      <div className="relative px-6 pb-10 pt-14 md:pt-16 lg:px-10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-12 lg:flex-row lg:items-start lg:justify-between lg:gap-10 xl:gap-14">
+      <div className="relative pb-[max(2.5rem,env(safe-area-inset-bottom))] pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] pt-12 sm:pl-[max(1.5rem,env(safe-area-inset-left))] sm:pr-[max(1.5rem,env(safe-area-inset-right))] md:pt-16 lg:pl-[max(2.5rem,env(safe-area-inset-left))] lg:pr-[max(2.5rem,env(safe-area-inset-right))]">
+        <div className="mx-auto flex max-w-6xl flex-col gap-10 text-center lg:flex-row lg:items-start lg:justify-between lg:gap-10 lg:text-left xl:gap-14">
           <div className="min-w-0 w-full lg:flex-1">
-            <FooterLogo />
+            <div className="flex justify-center lg:justify-start">
+              <FooterLogo />
+            </div>
 
             <h3 className="mt-8 text-sm font-semibold text-black">Subscribe</h3>
-            <p className="mt-2 text-sm leading-relaxed text-gray-600">
+            <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-gray-600 lg:mx-0">
               Join our newsletter to stay up to date on features and releases.
             </p>
 
             <form
-              className="mt-5 flex w-full max-w-md items-center gap-2 rounded-full border border-gray-200 bg-white py-1.5 pl-3 pr-1.5 shadow-sm"
+              className="mx-auto mt-5 flex w-full max-w-md flex-col gap-2 rounded-2xl border border-gray-200 bg-white p-2 shadow-sm sm:flex-row sm:items-center sm:gap-2 sm:rounded-full sm:py-1.5 sm:pl-3 sm:pr-1.5 lg:mx-0"
               action="#"
               onSubmit={(e) => e.preventDefault()}
             >
-              <Mail
-                className="ml-1 h-5 w-5 shrink-0 text-gray-400"
-                strokeWidth={1.75}
-                aria-hidden
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                autoComplete="email"
-                className="min-w-0 flex-1 bg-transparent text-sm text-black placeholder:text-gray-400 focus:outline-none"
-              />
-              <button type="submit" className={cn(lp.btnPrimarySm, "shrink-0")}>
+              <div className="flex min-h-10 min-w-0 flex-1 items-center gap-2 px-1 sm:px-0">
+                <Mail
+                  className="ml-1 h-5 w-5 shrink-0 text-gray-400"
+                  strokeWidth={1.75}
+                  aria-hidden
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  autoComplete="email"
+                  className="min-w-0 flex-1 bg-transparent text-sm text-black placeholder:text-gray-400 focus:outline-none"
+                />
+              </div>
+              <button
+                type="submit"
+                className={cn(lp.btnPrimarySm, "w-full shrink-0 sm:w-auto")}
+              >
                 Subscribe
               </button>
             </form>
 
-            <p className="mt-4 text-xs leading-relaxed text-gray-600">
+            <p className="mt-4 text-xs leading-relaxed text-gray-600 lg:text-left">
               By subscribing you agree to our{" "}
               <Link
                 href="/privacy"
@@ -127,22 +136,22 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-10 gap-y-10 sm:grid-cols-3 sm:gap-x-14 sm:gap-y-10 lg:flex lg:min-w-0 lg:flex-1 lg:justify-between">
+          <div className="grid w-full grid-cols-3 gap-x-2 gap-y-8 text-center sm:gap-x-6 sm:gap-y-10 md:gap-x-10 lg:flex lg:min-w-0 lg:flex-1 lg:justify-between lg:gap-10 lg:text-left">
             <LinkColumn title="Quick Links" links={quickLinks} />
             <LinkColumn title="Product" links={productLinks} />
             <LinkColumn title="Resources" links={resourceLinks} />
           </div>
         </div>
 
-        <div className="mx-auto mt-14 max-w-6xl border-t border-gray-200 pt-8">
-          <div className="flex flex-col gap-4 text-sm text-gray-600 md:flex-row md:items-center md:justify-between">
-            <p>
+        <div className="mx-auto mt-12 max-w-6xl border-t border-gray-200 pt-8 sm:mt-14">
+          <div className="flex flex-col items-center gap-4 text-center text-sm text-gray-600 md:flex-row md:items-center md:justify-between md:text-left">
+            <p className="max-w-md md:max-w-none">
               © {year}{" "}
               <span className="font-semibold text-black">{site.name} AI</span>{" "}
               All rights reserved.
             </p>
             <nav
-              className="flex flex-wrap items-center gap-x-3 gap-y-1 md:justify-end"
+              className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 sm:gap-x-3 md:justify-end"
               aria-label="Legal"
             >
               <Link

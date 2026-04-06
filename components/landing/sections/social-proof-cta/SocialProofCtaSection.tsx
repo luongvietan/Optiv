@@ -6,30 +6,52 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const CTA_BG_SRC = "/images/landing/CTA.png";
 
+const METRIC_TARGET = 26_900_789;
+
 export function SocialProofCtaSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
+  const dividerRef = useRef<HTMLDivElement>(null);
   const metricRef = useRef<HTMLDivElement>(null);
+  const metricNumberRef = useRef<HTMLSpanElement>(null);
   const ctaBlockRef = useRef<HTMLDivElement>(null);
+  const ctaImageRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
     const stats = statsRef.current;
+    const divider = dividerRef.current;
     const metric = metricRef.current;
+    const metricNumber = metricNumberRef.current;
     const ctaBlock = ctaBlockRef.current;
-    if (!section || !stats || !metric || !ctaBlock) return;
+    const ctaImage = ctaImageRef.current;
+    if (
+      !section ||
+      !stats ||
+      !divider ||
+      !metric ||
+      !metricNumber ||
+      !ctaBlock ||
+      !ctaImage
+    ) {
+      return;
+    }
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      metricNumber.textContent = METRIC_TARGET.toLocaleString("en-US");
+      return;
+    }
 
     const ctaCopy = ctaBlock.querySelectorAll("h3, p, a");
     const statsIntro = [
       stats.querySelector("h2"),
       stats.querySelector("p"),
-      stats.querySelector(".mt-6"),
     ].filter(Boolean) as HTMLElement[];
 
     const scrollDefaults = {
@@ -38,91 +60,138 @@ export function SocialProofCtaSection() {
     };
 
     const ctx = gsap.context(() => {
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: stats,
-            start: "top 92%",
-            ...scrollDefaults,
-          },
-        })
+      const counter = { val: 0 };
+      let lastDisplayed = -1;
+
+      const statsTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: stats,
+          start: "top 88%",
+          ...scrollDefaults,
+        },
+      });
+
+      statsTl
         .fromTo(
           statsIntro,
-          { opacity: 0, y: 26 },
+          { opacity: 0, y: 28 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.5,
-            stagger: 0.09,
-            ease: "power2.out",
+            duration: 0.58,
+            stagger: 0.1,
+            ease: "power3.out",
+            force3D: true,
             immediateRender: false,
           },
         )
         .fromTo(
-          metric,
-          { opacity: 0, scale: 0.82 },
+          divider,
+          { scaleX: 0, opacity: 0.4 },
           {
+            scaleX: 1,
             opacity: 1,
-            scale: 1,
-            duration: 0.7,
-            ease: "back.out(1.35)",
+            duration: 0.65,
+            ease: "power2.inOut",
+            transformOrigin: "50% 50%",
+            force3D: true,
             immediateRender: false,
           },
-          "-=0.1",
+          "-=0.32",
+        )
+        .fromTo(
+          metric,
+          { opacity: 0, y: 24, scale: 0.96 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.68,
+            ease: "power3.out",
+            force3D: true,
+            immediateRender: false,
+            onStart: () => {
+              counter.val = 0;
+              lastDisplayed = -1;
+              metricNumber.textContent = "0";
+            },
+          },
+          "-=0.4",
+        )
+        .to(
+          counter,
+          {
+            val: METRIC_TARGET,
+            duration: 1.75,
+            ease: "power2.out",
+            onUpdate: () => {
+              const n = Math.floor(counter.val);
+              if (n !== lastDisplayed) {
+                lastDisplayed = n;
+                metricNumber.textContent = n.toLocaleString("en-US");
+              }
+            },
+          },
+          "<",
         );
 
       gsap
         .timeline({
           scrollTrigger: {
             trigger: ctaBlock,
-            start: "top 92%",
+            start: "top 88%",
             ...scrollDefaults,
           },
         })
         .fromTo(
-          ctaBlock,
-          { opacity: 0, y: 72, clipPath: "inset(10% 0 10% 0)" },
+          ctaImage,
+          { scale: 1.04 },
           {
-            opacity: 1,
-            y: 0,
-            clipPath: "inset(0% 0 0% 0)",
-            duration: 0.95,
-            ease: "power3.out",
+            scale: 1,
+            duration: 1,
+            ease: "power2.out",
+            force3D: true,
             immediateRender: false,
           },
         )
         .fromTo(
-          ctaCopy,
-          { opacity: 0, y: 22 },
+          ctaBlock,
+          { opacity: 0, y: 36 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.5,
-            stagger: 0.1,
-            ease: "power2.out",
+            duration: 0.9,
+            ease: "power3.out",
+            force3D: true,
             immediateRender: false,
           },
-          "-=0.55",
+          0,
+        )
+        .fromTo(
+          ctaCopy,
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.55,
+            stagger: 0.1,
+            ease: "power3.out",
+            force3D: true,
+            immediateRender: false,
+          },
+          "-=0.65",
         );
     }, section);
 
     return () => ctx.revert();
   }, []);
 
-  useEffect(() => {
-    const id = requestAnimationFrame(() => {
-      ScrollTrigger.refresh();
-    });
-    const t = window.setTimeout(() => ScrollTrigger.refresh(), 120);
-    return () => {
-      cancelAnimationFrame(id);
-      window.clearTimeout(t);
-    };
-  }, []);
-
   return (
     <section ref={sectionRef} className={lp.section} aria-labelledby="social-proof-heading">
-      <div ref={statsRef} className={cn(lp.container, "relative z-10")}>
+      <div
+        ref={statsRef}
+        className={cn(lp.container, "relative z-10 text-center md:text-left")}
+      >
         <h2 id="social-proof-heading" className={lp.headingSectionMd}>
           Don&apos;t Just Take Our Word for it
         </h2>
@@ -130,13 +199,20 @@ export function SocialProofCtaSection() {
           9,677+ Active Users
         </p>
 
-        <div className="mt-6 h-px w-full bg-gray-200" aria-hidden />
+        <div
+          ref={dividerRef}
+          className="mt-6 h-px w-full origin-center bg-gray-200"
+          aria-hidden
+        />
 
         <div
           ref={metricRef}
-          className="js-social-metric mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-4 sm:gap-y-2"
+          className="js-social-metric mt-8 flex flex-col items-center gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-4 sm:gap-y-2"
         >
-          <span className="text-4xl font-normal tabular-nums tracking-tight text-black md:text-5xl lg:text-6xl">
+          <span
+            ref={metricNumberRef}
+            className="text-3xl font-normal tabular-nums tracking-tight text-black sm:text-4xl md:text-5xl lg:text-6xl"
+          >
             26,900,789
           </span>
           <span className={cn(lp.mutedBase, "md:text-lg")}>
@@ -163,17 +239,23 @@ export function SocialProofCtaSection() {
               lp.roundedMedia,
             )}
           >
-            <Image
-              src={CTA_BG_SRC}
-              alt=""
-              fill
-              className="object-cover object-center"
-              sizes="(max-width: 1152px) 100vw, 1152px"
-            />
+            <div
+              ref={ctaImageRef}
+              className="absolute inset-0 overflow-hidden"
+              aria-hidden
+            >
+              <Image
+                src={CTA_BG_SRC}
+                alt=""
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 1152px) 100vw, 1152px"
+              />
+            </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/35 to-black/25" />
 
-            <div className="relative z-10 flex min-h-[300px] flex-col items-center justify-center px-6 py-14 text-center md:min-h-[340px] md:px-12 md:py-16">
-              <h3 className="max-w-xl text-balance text-2xl font-normal leading-[1.1] tracking-tight text-white md:text-3xl lg:text-4xl">
+            <div className="relative z-10 flex min-h-[280px] flex-col items-center justify-center py-12 pl-[max(1.25rem,env(safe-area-inset-left))] pr-[max(1.25rem,env(safe-area-inset-right))] text-center sm:min-h-[300px] sm:pl-6 sm:pr-6 md:min-h-[340px] md:px-12 md:py-16">
+              <h3 className="max-w-xl text-balance text-xl font-normal leading-[1.1] tracking-tight text-white sm:text-2xl md:text-3xl lg:text-4xl">
                 Start Your Productivity Journey Today
               </h3>
               <p className="mt-4 max-w-md text-lg leading-relaxed text-white/95 md:text-xl">

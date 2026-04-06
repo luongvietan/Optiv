@@ -63,11 +63,14 @@ export function BuildPlanAiSection() {
       aria-labelledby="build-plan-ai-heading"
     >
       <div className="mx-auto grid max-w-6xl items-center gap-12 [perspective:1400px] lg:grid-cols-2 lg:gap-16">
-        <div ref={copyRef} className="text-left">
+        <div
+          ref={copyRef}
+          className="text-center lg:text-left"
+        >
           <h2 id="build-plan-ai-heading" className={lp.headingSectionMd}>
             Build, Plan, and Execute with AI
           </h2>
-          <p className={cn(lp.lead, "mt-5")}>
+          <p className={cn(lp.lead, "mx-auto mt-5 max-w-xl lg:mx-0")}>
             AI helps you manage time, tasks, and resources efficiently.
           </p>
 
@@ -87,9 +90,11 @@ export function BuildPlanAiSection() {
 
           <p className={cn(lp.muted, "mt-5")}>Think outside the box</p>
 
-          <Link href="/signup" className={cn(lp.btnPrimary, "mt-8")}>
-            Get Started — Free
-          </Link>
+          <div className="mt-8 flex justify-center lg:justify-start">
+            <Link href="/signup" className={lp.btnPrimary}>
+              Get Started — Free
+            </Link>
+          </div>
         </div>
 
         <div

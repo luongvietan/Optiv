@@ -123,7 +123,7 @@ export function AiProductivitySection() {
                   </div>
                 ))}
               </div>
-              <div className="space-y-0.5">
+              <div className="space-y-0.5 text-center sm:text-left">
                 <p className="text-base font-semibold text-black">
                   Join thousands using AI daily
                 </p>
@@ -133,7 +133,13 @@ export function AiProductivitySection() {
               </div>
             </div>
 
-            <Link href="/signup" className={cn(lp.btnPrimary, "shrink-0")}>
+            <Link
+              href="/signup"
+              className={cn(
+                lp.btnPrimary,
+                "mx-auto w-full max-w-xs shrink-0 justify-center sm:mx-0 sm:w-auto sm:max-w-none",
+              )}
+            >
               Get Your Assistant
             </Link>
           </div>

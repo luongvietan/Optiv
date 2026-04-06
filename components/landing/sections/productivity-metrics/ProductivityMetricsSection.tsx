@@ -90,7 +90,10 @@ export function ProductivityMetricsSection() {
           </p>
         </div>
 
-        <ul ref={listRef} className="mt-12 grid gap-5 text-left md:mt-16 md:grid-cols-3 md:gap-6">
+        <ul
+          ref={listRef}
+          className="mt-12 grid gap-5 text-center sm:grid-cols-2 sm:text-left md:mt-16 lg:grid-cols-3 lg:gap-6"
+        >
           {METRICS.map((item) => (
             <li
               key={item.description}

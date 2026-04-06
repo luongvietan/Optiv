@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import "./globals.css";
@@ -18,15 +18,21 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en" className={`${inter.variable} h-full overflow-x-clip antialiased`}>
       <body
-        className={`${inter.className} flex min-h-full flex-col bg-white font-sans`}
+        className={`${inter.className} flex min-h-dvh flex-col bg-white font-sans`}
       >
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>

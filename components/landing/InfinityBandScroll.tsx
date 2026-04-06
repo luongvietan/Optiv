@@ -8,10 +8,10 @@ const PARTNER_LOGOS = [
 ] as const;
 
 const LOGO_BOX =
-  "flex h-10 w-[7.5rem] shrink-0 items-center justify-center md:h-11 md:w-[8.5rem]";
+  "flex h-8 w-[5.75rem] shrink-0 items-center justify-center sm:h-10 sm:w-[7.5rem] md:h-11 md:w-[8.5rem]";
 
 const LOGO_LIST =
-  "m-0 flex shrink-0 list-none flex-nowrap items-center gap-10 p-0 sm:gap-14 md:gap-16 pr-10 sm:pr-14 md:pr-16";
+  "m-0 flex shrink-0 list-none flex-nowrap items-center gap-7 p-0 pr-7 sm:gap-14 sm:pr-14 md:gap-16 md:pr-16";
 
 function LogoList({ decorative = false }: { decorative?: boolean }) {
   return (
@@ -39,8 +39,10 @@ export default function InfinityBandScroll() {
   return (
     <div
       className={cn(
-        "inline-flex w-full min-w-0 flex-nowrap overflow-hidden py-8",
-        "mask-[linear-gradient(to_right,transparent_0,black_128px,black_calc(100%-200px),transparent_100%)]",
+        "inline-flex w-full min-w-0 flex-nowrap overflow-hidden py-5 sm:py-8",
+        "mask-[linear-gradient(to_right,transparent_0,black_24px,black_calc(100%-24px),transparent_100%)]",
+        "sm:mask-[linear-gradient(to_right,transparent_0,black_80px,black_calc(100%-80px),transparent_100%)]",
+        "md:mask-[linear-gradient(to_right,transparent_0,black_128px,black_calc(100%-200px),transparent_100%)]",
       )}
     >
       <div
